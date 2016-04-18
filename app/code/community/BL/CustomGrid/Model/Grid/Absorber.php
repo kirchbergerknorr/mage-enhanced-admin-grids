@@ -352,6 +352,13 @@ class BL_CustomGrid_Model_Grid_Absorber extends BL_CustomGrid_Model_Grid_Worker
         $checkedCollection = $this->_checkCollectionColumnsAgainstGridBlock($gridBlock);
         $this->_checkAttributeColumnsValidity();
         $this->_checkCustomColumnsValidity();
+        
+        foreach ($this->getGridModel()->getColumns() as $column){
+            if(is_array($column->getIndex())){
+                $column->setIndex(implode(',',$column->getIndex()));
+            }
+        }
+        
         $this->getGridModel()->setDataChanges(true)->save();
         return $checkedCollection;
     }
